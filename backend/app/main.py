@@ -1,27 +1,39 @@
 import sys
 import os
+import uvicorn
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
-from api.v1.routes import books, auth, sse
+from backend.app.api.v1.routes import books, auth, sse
 import logging
-from db.database import SessionLocal
-from core.openapi import custom_openapi
+from backend.app.db.database import SessionLocal
+from backend.app.core.openapi import custom_openapi
 from fastapi.exceptions import RequestValidationError
-from backend.app.db.schemas.errors import ValidationError
-from fastapi.middleware.cors import CORSMiddleware
-from starlette.middleware.trustedhost import TrustedHostMiddleware
+from fastapi.middleware import Middleware
+from starlette.middleware.base import BaseHTTPMiddleware
 
 # Initialize the logger
 logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.DEBUG,  # Set to DEBUG level
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+)
 logger = logging.getLogger(__name__)
+
+class LoggingMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        logger.debug(f"Request: {request.method} {request.url}")
+        response = await call_next(request)
+        logger.debug(f"Response status: {response.status_code}")
+        return response
 
 app = FastAPI(
     title="Books API",
     description="CRUD API for books with JWT authentication",
     version="1.0.0",
+    middleware=[Middleware(LoggingMiddleware)]
 )
 
 @app.on_event("startup")
@@ -43,18 +55,6 @@ async def shutdown():
     """
     logger.info("Shutting down the application...")
     logger.info("Resources cleaned up successfully.")
-
-# Example middleware for debugging
-@app.middleware("http")
-async def log_requests(request, call_next):
-    try:
-        response = await call_next(request)
-        return response
-    except Exception as e:
-        logging.error(f"Error: {str(e)}", exc_info=True)
-        return JSONResponse(
-            status_code=500, content={"detail": "An unexpected error occurred."}
-        )
     
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException):
@@ -95,3 +95,13 @@ app.include_router(sse.router, prefix="/v1/stream", tags=["Real-Time Updates"])
 
 # Apply custom OpenAPI
 app.openapi = lambda: custom_openapi(app)
+
+
+if __name__ == "__main__":
+    uvicorn.run(
+        "backend.app.main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+        log_level="debug",
+    )
