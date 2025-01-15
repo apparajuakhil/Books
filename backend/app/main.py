@@ -11,6 +11,8 @@ from db.database import SessionLocal
 from core.openapi import custom_openapi
 from fastapi.exceptions import RequestValidationError
 from backend.app.db.schemas.errors import ValidationError
+from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 # Initialize the logger
 logging.basicConfig(level=logging.INFO)
@@ -42,6 +44,18 @@ async def shutdown():
     logger.info("Shutting down the application...")
     logger.info("Resources cleaned up successfully.")
 
+# Example middleware for debugging
+@app.middleware("http")
+async def log_requests(request, call_next):
+    try:
+        response = await call_next(request)
+        return response
+    except Exception as e:
+        logging.error(f"Error: {str(e)}", exc_info=True)
+        return JSONResponse(
+            status_code=500, content={"detail": "An unexpected error occurred."}
+        )
+    
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException):
     """
