@@ -5,10 +5,10 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
-from app.api.v1.routes import books, auth, sse
+from api.v1.routes import books, auth, sse
 import logging
-from app.db.database import SessionLocal
-from app.core.openapi import custom_openapi
+from db.database import SessionLocal
+from core.openapi import custom_openapi
 from fastapi.exceptions import RequestValidationError
 from app.db.schemas.errors import ValidationError
 
