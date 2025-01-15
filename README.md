@@ -42,20 +42,20 @@ Explore the API using Swagger UI:
 
 ### Authentication
 
-POST /v1/auth/login: Authenticate user and get a token.
+- POST /v1/auth/login: Authenticate user and get a token.
 
 ### Books
 
-POST /v1/books/: Create a new book.
-GET /v1/books/: Retrieve a paginated list of books.
-GET /v1/books/{book_id}: Retrieve a specific book by ID.
-PUT /v1/books/{book_id}: Update an existing book.
-PATCH /v1/books/{book_id}: Partially update a book.
-DELETE /v1/books/{book_id}: Delete a book by ID.
+- POST /v1/books/: Create a new book.
+- GET /v1/books/: Retrieve a paginated list of books.
+- GET /v1/books/{book_id}: Retrieve a specific book by ID.
+- PUT /v1/books/{book_id}: Update an existing book.
+- PATCH /v1/books/{book_id}: Partially update a book.
+- DELETE /v1/books/{book_id}: Delete a book by ID.
 
 ### Streaming
 
-GET /v1/stream/: Open an SSE connection to receive real-time updates.
+- GET /v1/stream/: Open an SSE connection to receive real-time updates.
 
 ## Tech Stack
 
