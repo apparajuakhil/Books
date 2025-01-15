@@ -4,8 +4,7 @@ The **Books API** is a FastAPI-based application that allows users to manage a c
 
 ## API Documentation
 
-Explore the API using Swagger UI:  
-[Books API Documentation](https://booksbackend-7f60395de01c.herokuapp.com/docs)
+Explore the API using Swagger UI:  [Books API Documentation](https://booksbackend-7f60395de01c.herokuapp.com/docs)
 
 ---
 
