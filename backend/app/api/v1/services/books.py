@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
-from app.db.models import Book
-from app.db.schemas.books import BookCreate, BookPut, BookPatch
+from backend.app.db.models import Book
+from backend.app.db.schemas.books import BookCreate, BookPut, BookPatch
 from fastapi import HTTPException, status
 from datetime import datetime, date
-from app.core.sse import add_event
+from backend.app.core.sse import add_event
 
 DATE_FORMAT = "%Y-%m-%d"
 

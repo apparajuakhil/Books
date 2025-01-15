@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app.db.models import Book
-from app.db.schemas import BookCreate, BookUpdate
+from backend.app.db.models import Book
+from backend.app.db.schemas import BookCreate, BookUpdate
 from fastapi import HTTPException, status
 from datetime import datetime
 

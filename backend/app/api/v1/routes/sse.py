@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
-from app.core.sse import generate_stream, add_event
-from app.core.security import verify_access_token
-from app.db.schemas.errors import (
+from backend.app.core.sse import generate_stream, add_event
+from backend.app.core.security import verify_access_token
+from backend.app.db.schemas.errors import (
     BadRequestError,
     UnauthorizedError,
     InternalServerError,

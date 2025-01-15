@@ -1,10 +1,10 @@
 from datetime import datetime, timedelta
 from jose import jwt, JWTError, ExpiredSignatureError
 from passlib.context import CryptContext
-from app.core.config import settings
+from backend.app.core.config import settings
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from app.core.sse import add_event  # Import add_event for SSE
+from backend.app.core.sse import add_event  # Import add_event for SSE
 
 # Password hashing context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

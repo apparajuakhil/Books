@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, status, Form
 from sqlalchemy.orm import Session
-from app.api.v1.services.auth import authenticate_user
-from app.api.dependencies.db import get_db
-from app.db.schemas.auth import LoginRequest, TokenResponse
-from app.db.schemas.errors import (
+from backend.app.api.v1.services.auth import authenticate_user
+from backend.app.api.dependencies.db import get_db
+from backend.app.db.schemas.auth import LoginRequest, TokenResponse
+from backend.app.db.schemas.errors import (
     BadRequestError,
     UnauthorizedError,
     InternalServerError,

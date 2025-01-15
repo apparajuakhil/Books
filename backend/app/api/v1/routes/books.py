@@ -1,16 +1,16 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.db.schemas.books import Book, BookCreate, BookPut, BookPatch, BooksResponse, BookCreatedResponse, SuccessResponse
-from app.db.schemas.errors import (
+from backend.app.db.schemas.books import Book, BookCreate, BookPut, BookPatch, BooksResponse, BookCreatedResponse, SuccessResponse
+from backend.app.db.schemas.errors import (
     BadRequestError,
     UnauthorizedError,
     NotFoundError,
     ValidationError,
     InternalServerError,
 )
-from app.api.dependencies.db import get_db
-from app.core.security import verify_access_token
-from app.api.v1.services.books import book_service
+from backend.app.api.dependencies.db import get_db
+from backend.app.core.security import verify_access_token
+from backend.app.api.v1.services.books import book_service
 
 # Global dependency to enforce token validation on all endpoints
 router = APIRouter(dependencies=[Depends(verify_access_token)])

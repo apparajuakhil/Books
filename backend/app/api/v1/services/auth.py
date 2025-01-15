@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status
-from app.core.security import verify_password, create_access_token, hash_password
-from app.core.sse import add_event  # Import the SSE event function
+from backend.app.core.security import verify_password, create_access_token, hash_password
+from backend.app.core.sse import add_event  # Import the SSE event function
 
 # Mock user database
 fake_users_db = {

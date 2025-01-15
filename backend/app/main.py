@@ -10,7 +10,7 @@ import logging
 from db.database import SessionLocal
 from core.openapi import custom_openapi
 from fastapi.exceptions import RequestValidationError
-from app.db.schemas.errors import ValidationError
+from backend.app.db.schemas.errors import ValidationError
 
 # Initialize the logger
 logging.basicConfig(level=logging.INFO)
